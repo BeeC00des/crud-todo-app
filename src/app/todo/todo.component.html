@@ -25,7 +25,7 @@
         <div class="row">
           <div class="col-md-4">
             <div class="example-container">
-              <h2>To do</h2>
+              <h2>To do <span *ngIf="tasks.length > 0"> - {{ tasks.length }}</span></h2>
               <div
                 cdkDropList
                 [cdkDropListData]= "tasks"
@@ -48,7 +48,7 @@
           </div>
           <div class="col-md-4">
             <div class="example-container">
-                <h2>In progress</h2>
+                <h2>In progress <span *ngIf="taskProgress.length > 0"> - {{taskProgress.length}}</span></h2>
                 <div
                   cdkDropList
                   [cdkDropListData]="taskProgress"
@@ -68,15 +68,23 @@
           </div>
           <div class="col-md-4">
             <div class="example-container">
-                <h2>Done</h2>
+                <h2>Done <span *ngIf="taskDone.length > 0"> - {{taskDone.length}}</span></h2>
                 <div
                   cdkDropList
                   [cdkDropListData]= "taskDone"
                   class="example-list"
                   (cdkDropListDropped)="drop($event)"
                 >
-                  <div class="example-box" *ngFor="let item of taskDone" cdkDrag>
+                  <div class="example-box" *ngFor="let item of taskDone let i = index" cdkDrag>
                     {{ item.description }}
+                    <div class="box">
+                        <button color="warn" mat-icon-button (click)="deleteTaskDone(i)" > 
+                            <mat-icon >delete</mat-icon>
+                        </button>
+                        <button color="accent" mat-icon-button > 
+                          <mat-icon >check_circle</mat-icon>
+                      </button>
+                    </div>
                   </div>
                 </div>
               </div>
